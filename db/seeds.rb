@@ -10,3 +10,9 @@
   actor = Actor.new({first_name: FFaker::Name.first_name, last_name: FFaker::Name.last_name, known_for: FFaker::Movie.title})
   actor.save  
 end
+
+index = 1
+3.times do
+  Movie.create(title:FFaker::Movie.title, year:rand(1990..2020), plot:"plot description ##{index}")
+  index += 1
+end
