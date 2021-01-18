@@ -14,4 +14,13 @@ class Api::ActorsController < ApplicationController
     # end
     render 'ffake_10_actors.json.jb'
   end
+
+  #"actors#one_actor_param_action"
+  def one_actor_param_action
+    @message = "Here is one actor as requested:"
+    id = params[:id]
+    @actor = Actor.find_by(id: id)
+
+    render 'one_actor.json.jb'
+  end
 end
