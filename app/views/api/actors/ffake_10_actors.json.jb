@@ -1,4 +1,0 @@
-{
-  message: "Here is a list of 10 actors",
-  actors: @actors
-}

@@ -1,26 +1,38 @@
 class Api::ActorsController < ApplicationController
-
-  def one_actor_action
-    @message = "Here is one actor"
-    @actor = Actor.new(first_name: "Martin", last_name: "Freeman", known_for: "The Hobbit")
-    render 'one_actor.json.jb'
-  end
-
-  def ffake_10_actors_action #doesn't actually put 10, but all 10 should appear after db is seeded and none of them were removed.
+  # get "/actors" => "actors#index"
+  # post "/actors" => "actors#create"
+  # get "/actors/:id" => "actors#show"
+  # patch "/actors/:id" => "actors#update"
+  # delete "/actors/:id" => "actors#destroy"
+  
+  def index
     @actors = Actor.all
-    # index = 1 #DB index starts at 1
-    # 10.times do
-    #   @actors << Actor.find_by(id:index)
-    # end
-    render 'ffake_10_actors.json.jb'
+    render 'index.json.jb'
   end
 
-  #"actors#one_actor_param_action"
-  def one_actor_param_action
-    @message = "Here is one actor as requested:"
-    id = params[:id]
-    @actor = Actor.find_by(id: id)
-
-    render 'one_actor.json.jb'
+  def create
+    @actor = Actor.create(first_name: params[:first_name], last_name: params[:last_name], known_for: params[:known_for])
+    render 'show.json.jb'
   end
+
+  def show
+    @actor = Actor.find_by(id: params[:id])
+    render 'show.json.jb'
+  end
+
+  def update
+    @actor = Actor.find_by(id: params[:id])
+    @actor.first_name = params[:first_name] || @actor.first_name
+    @actor.last_name = params[:last_name] || @actor.last_name
+    @actor.known_for = params[:known_for] || @actor.known_for
+    @actor.save
+    render 'show.json.jb'
+  end
+
+  def destroy
+    actor = Actor.find_by(id: params[:id])
+    actor.destroy
+    render json: {message: "Actor has been deleted."}
+  end
+
 end

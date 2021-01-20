@@ -1,4 +1,0 @@
-{
-  message: @message,
-  sample_actor: @actor
-}
