@@ -13,6 +13,6 @@ end
 
 index = 1
 3.times do
-  Movie.create(title:FFaker::Movie.title, year:rand(1990..2020), plot:"plot description ##{index}")
+  Movie.create(title:FFaker::Movie.title, year:rand(1990..2020), plot:"plot description ##{index}", director: FFaker::Name.first_name + " " + FFaker::Name.last_name, english: true)
   index += 1
 end
