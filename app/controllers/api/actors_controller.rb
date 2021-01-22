@@ -1,9 +1,4 @@
 class Api::ActorsController < ApplicationController
-  # get "/actors" => "actors#index"
-  # post "/actors" => "actors#create"
-  # get "/actors/:id" => "actors#show"
-  # patch "/actors/:id" => "actors#update"
-  # delete "/actors/:id" => "actors#destroy"
   
   def index
     @actors = Actor.all
@@ -11,8 +6,12 @@ class Api::ActorsController < ApplicationController
   end
 
   def create
-    @actor = Actor.create(first_name: params[:first_name], last_name: params[:last_name], known_for: params[:known_for], gender: params[:gender], age: params[:age])
-    render 'show.json.jb'
+    @actor = Actor.new(first_name: params[:first_name], last_name: params[:last_name], known_for: params[:known_for], gender: params[:gender], age: params[:age])
+    if @actor.save
+      render 'show.json.jb'
+    else
+      render json: {errors: @actor.errors.full_messages}, status: 422
+    end
   end
 
   def show
@@ -27,8 +26,13 @@ class Api::ActorsController < ApplicationController
     @actor.known_for = params[:known_for] || @actor.known_for
     @actor.gender = params[:gender] || @actor.gender
     @actor.age = params[:age] || @actor.age
-    @actor.save
-    render 'show.json.jb'
+    
+    if @actor.save
+      render 'show.json.jb'  
+    else
+      render json: {errors: @actor.errors.full_messages}, status: 422  
+    end
+    
   end
 
   def destroy
