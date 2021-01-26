@@ -1,5 +1,7 @@
 class Actor < ApplicationRecord
 
+  belongs_to :movie
+
   validates :first_name, length: {minimum: 3}
   validates :last_name, length: {minimum: 3}
   validates :known_for, presence: true
