@@ -1,5 +1,7 @@
 class Api::MoviesController < ApplicationController
 
+  before_action :authenticate_admin, except: [:index, :show]
+
   def index
     #Make the Movie index action only show movies that are in english.
     @movies = Movie.where(english: true)
