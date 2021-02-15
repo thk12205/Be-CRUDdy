@@ -8,7 +8,7 @@ class Movie < ApplicationRecord
   validates :year, presence: true
   validates :plot, length: {minimum: 5}
   validates :director, length: {minimum: 3}
-  validates :english, presence: true
+  # validates :english, presence: true
 
   def genre_names
     genres.map {|genre| genre.name}
