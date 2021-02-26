@@ -18,5 +18,4 @@ class Movie < ApplicationRecord
     #run map to get each name of each genre instance
     #return map
   end
-  
 end
